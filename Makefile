@@ -5,7 +5,7 @@ OPTIMIZATION?=-O3 -march=native -fomit-frame-pointer -funroll-loops
 
 STD  = -std=c99 -pedantic
 WARN = -Wall -Wextra
-OPT  = $(OPTIMIZATION)
+OPT  = $(OPTIMIZATION) -static
 
 PREFIX?=/usr/local
 DPREFIX=$(DESTDIR)$(PREFIX)
@@ -106,6 +106,8 @@ install: 	$(INSTALL_LIB)/libminibsdiff.a \
 	 	$(INSTALL_LIB)/libminibsdiff.so \
 		$(INSTALL_INCLUDE)/bsdiff.h $(INSTALL_INCLUDE)/bspatch.h \
 		$(INSTALL_BIN)/minibsdiff
+		cp bindings/* $(INSTALL_LIB)
+		$(MAKE) clean
 
 $(INSTALL_INCLUDE)/bsdiff.h: bsdiff.h
 	$(Q)mkdir -p $(INSTALL_INCLUDE)
